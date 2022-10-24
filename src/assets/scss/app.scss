@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import "./_variables.scss";
+@import "./reset";
+@import "./card";
+@import "./button";
+
+#app {
+  font-family: $font-family, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: $primary;
+  -webkit-text-fill-color: $primary;
+  background-color: #e4e4e4;
+  min-height: 100vh;
+  height: 100%;
+}
+$button-bg-color: #F1E9E5;
+%button_style {
+  cursor: pointer;
+  border: 0;
+  background-color: $button-bg-color;
+  font: inherit;
+  font-size: 1rem;
+  box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+  width: 240px;
+  &:hover {
+    background-color: darken($color: $button-bg-color, $amount: 5)
+  }
+}
+button {
+  cursor: pointer;
+  transition: all 250ms ease 0s;
+  @extend %button_style
+}
+
+input {
+  font-family: $font-family;
+}
+

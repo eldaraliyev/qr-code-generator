@@ -1,18 +1,39 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <base-tabs @toggle-tab="toggleComponent"></base-tabs>
+    <Transition mode="out-in">
+      <div class="card">
+        <component :is="selectedComponent" />
+        <button>Generate</button>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+// import fetchApi from "@/ApiService";
+import { computed, defineComponent, ref } from "vue";
 
 export default defineComponent({
-  name: 'HomeView',
-  components: {
-    HelloWorld,
+  name: "HomeView",
+  setup() {
+    const selectedComponent = ref("simple-generator");
+    const toggleComponent = (val: string) => (selectedComponent.value = val);
+    return {
+      toggleComponent,
+      selectedComponent,
+    };
   },
 });
 </script>
+<style lang="scss" scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
