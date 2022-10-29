@@ -3,16 +3,14 @@
     <base-tabs @toggle-tab="toggleComponent"></base-tabs>
     <Transition mode="out-in">
       <div class="card">
-        <component :is="selectedComponent" />
-        <button>Generate</button>
+        <component :is="selectedComponent"/>
       </div>
     </Transition>
   </div>
 </template>
 
 <script lang="ts">
-// import fetchApi from "@/ApiService";
-import { computed, defineComponent, ref } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "HomeView",

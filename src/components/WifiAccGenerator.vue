@@ -13,7 +13,7 @@ export default defineComponent({
     let imageSrc = ref("");
     let resultGlobalData = computed(() => store.getters.handleResult);
     watch(resultGlobalData, (val) => (imageSrc.value = val));
-    const generate = async () => {
+    const generateQr = async () => {
       let payload = `WIFI:T:${secureType.value};S:${network_name.value};P:${password.value};H:${isHidden.value}`;
       store.dispatch("generateQrCode", payload);
     };
@@ -23,44 +23,33 @@ export default defineComponent({
       network_name,
       password,
       isHidden,
-      generate,
+      generateQr,
     };
   },
 });
 </script>
 <template>
-    <div class="form__group form__group__inline">
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Network Name"
-        v-model="network_name"
-      />
-
-      <label for="ishidden"
-        ><input
-          type="checkbox"
-          name="hidden"
-          id="ishidden"
-          v-model="isHidden"
-        />
-        Hidden Network</label
-      >
+  <section id="result">
+    <div class="form-result">
+      <img v-if="imageSrc" :src="imageSrc" alt="result" width="200" />
+      <div v-else class="placeholder"></div>
     </div>
-
-    <div class="form__group">
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Password"
-        v-model="password"
-      />
-    </div>
-
+  </section>
+  <section id="form">
+    <base-input
+      id="network-name"
+      placeholder="Enter Network Name"
+      v-model="network_name"
+    />
+    <label for="ishidden">
+      <input type="checkbox" name="hidden" id="ishidden" v-model="isHidden" />
+      Hidden Network
+    </label>
+    <base-input
+      id="password"
+      placeholder="Enter Network Password"
+      v-model="password"
+    ></base-input>
     <div class="radio__group">
       <p class="radio__group-label">Security Protocol:</p>
       <div class="radio__group-buttons">
@@ -92,14 +81,9 @@ export default defineComponent({
           />WPA/WPA2</label
         >
       </div>
+      <base-button title="Generate" @click="generateQr" />
     </div>
-
-    <div class="second-wrapper">
-      <div class="form-result">
-        <img v-if="imageSrc" :src="imageSrc" alt="result" width="150" />
-        <div v-else class="placeholder"></div>
-      </div>
-    </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>
@@ -121,6 +105,11 @@ export default defineComponent({
     display: flex;
     gap: 0.5rem;
   }
+}
+.placeholder {
+  height: 200px;
+  width: 200px;
+  background: rgba($color: white, $alpha: 0.2);
 }
 .generate__button {
   margin-top: 1.5rem;

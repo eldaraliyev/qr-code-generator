@@ -64,14 +64,15 @@ $hover: darken(
       gap: 1rem;
     }
     &-button {
+      font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
-      // background-color: #fff;
-      box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
       padding: 1rem;
       border-radius: 0.5rem;
       transition: all 250ms ease 0s;
       &:hover {
-        background-color: $hover;
+        box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+        color: #9499ff;
       }
     }
     &-input {
@@ -80,7 +81,7 @@ $hover: darken(
   }
 }
 .selected {
-  background-color: $hover;
+  color: #9499ff;
 }
 .custom__tab {
   position: relative;

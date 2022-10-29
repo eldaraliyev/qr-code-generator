@@ -1,0 +1,16 @@
+@import "./variables";
+#app {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #ffffffde;
+  background-color: #242424;
+  min-height: 100vh;
+  height: 100%;
+}
+
+input {
+  font-family: $font-family;
+}
+

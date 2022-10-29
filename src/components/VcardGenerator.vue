@@ -24,7 +24,7 @@ export default defineComponent({
     });
     const resultGlobalData = computed(() => store.getters.handleResult);
     const payload = computed(() => {
-      return `BEGIN:VCARD
+      return `  BEGIN:VCARD 
 VERSION:3.0
 N:${formData.surname};${formData.name}
 FN:${formData.name} ${formData.surname}
@@ -56,6 +56,7 @@ END:VCARD`;
     // URL:https://my-portfolio.com
     // END:VCARD
     return {
+      payload,
       imageSrc,
       formData,
       generateQr,
@@ -64,160 +65,71 @@ END:VCARD`;
 });
 </script>
 <template>
-    <div class="form-group">
-      <!-- <label class="form__group-label" for="simple-text">First Name:</label> -->
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="First Name"
-        v-model="formData.name"
-      />
-    </div>
-    <div class="form-group">
-      <!-- <label class="form__group-label" for="simple-text">Last Name:</label> -->
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Last Name"
-        v-model="formData.surname"
-      />
-    </div>
-    <!-- <div class="form-group">
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Mobile Number"
-        v-model="formData.mobile"
-      />
-    </div> -->
-    <div class="form-group">
-      <!-- <label class="form__group-label" for="simple-text">Phone:</label> -->
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Phone Number"
-        v-model="formData.phone"
-      />
-    </div>
-    <!-- <div class="form-group">
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Fax"
-        v-model="formData.fax"
-      />
-    </div> -->
-    <div class="form-group">
-      <!-- <label class="form__group-label" for="simple-text">Email:</label> -->
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Email"
-        v-model="formData.email"
-      />
-    </div>
-    <div class="form-group">
-      <!-- <label class="form__group-label" for="simple-text">Company:</label> -->
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Company"
-        v-model="formData.company"
-      />
-    </div>
-    <div class="form-group">
-      <!-- <label class="form__group-label" for="simple-text">Your Job:</label> -->
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Job Title"
-        v-model="formData.job_title"
-      />
-    </div>
-    <!-- <div class="form-group">
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Street"
-        v-model="formData.street"
-      />
-    </div> -->
-    <div class="form-group">
-      <!-- <label class="form__group-label" for="simple-text">City:</label> -->
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="City"
-        v-model="formData.city"
-      />
-    </div>
-    <!-- <div class="form-group">
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Zip Code"
-        v-model="formData.zip"
-      />
-    </div>
-    <div class="form-group">
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="State"
-        v-model="formData.state"
-      />
-    </div> -->
-    <div class="form-group">
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Country"
-        v-model="formData.country"
-      />
-    </div>
-    <div class="form-group">
-      <!-- <label class="form__group-label" for="simple-text">Website:</label> -->
-      <input
-        id="simple-text"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Personal Website"
-        v-model="formData.website"
-      />
-    </div>
-  <!-- <button @click="generateQr">Generate</button> -->
-  <div class="second-wrapper">
+  {{payload}}
+  <section id="result">
     <div class="form-result">
-      <img v-if="imageSrc" :src="imageSrc" alt="result" width="150" />
+      <img v-if="imageSrc" :src="imageSrc" alt="result" width="200" />
       <div v-else class="placeholder"></div>
     </div>
-  </div>
+  </section>
+  <section id="form" class="form-container">
+    <base-input
+      id="first-name"
+      placeholder="Enter First Name"
+      v-model="formData.name"
+    />
+    <base-input
+      id="last-name"
+      placeholder="Enter Last Name"
+      v-model="formData.surname"
+    />
+    <base-input
+      id="phone-number"
+      placeholder="Enter Phone Number"
+      v-model="formData.phone"
+    />
+    <base-input
+      id="email-address"
+      placeholder="Enter Email Address"
+      v-model="formData.email"
+    />
+    <base-input
+      id="company-name"
+      placeholder="Enter Company Name"
+      v-model="formData.company"
+    />
+    <base-input
+      id="job-title"
+      placeholder="Enter your Job Title"
+      v-model="formData.job_title"
+    />
+    <base-input
+      id="city-name"
+      placeholder="Enter City Name"
+      v-model="formData.city"
+    />
+    <base-input
+      id="country-name"
+      placeholder="Enter Country Name"
+      v-model="formData.country"
+    />
+    <base-input
+      id="personal-website"
+      placeholder="Enter your Personal Website"
+      v-model="formData.website"
+    />
+  </section>
+  <base-button title="Generate" @click="generateQr" />
 </template>
-<style scoped></style>
+<style lang="scss" scoped>
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.placeholder {
+  height: 200px;
+  width: 200px;
+  background: rgba($color: white, $alpha: 0.2);
+}
+</style>

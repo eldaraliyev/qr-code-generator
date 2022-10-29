@@ -12,9 +12,8 @@ export default defineComponent({
     let resultGlobalData = computed(() => store.getters.handleResult);
     const onInput = (e: any) => store.commit("saveResult", e.target.value);
     watch(resultGlobalData, (val: string) => (imageSrc.value = val));
-    const generateQr = async (e: any) => {
-      const data = e.target.value;
-      store.dispatch("generateQrCode", data);
+    const generateQr = async () => {
+      store.dispatch("generateQrCode", someData.value);
       imageUrl.value = resultGlobalData.value;
     };
     return {
@@ -30,32 +29,25 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="second-wrapper">
+  <section id="result">
     <div class="form-result">
       <img v-if="imageSrc" :src="imageSrc" alt="result" width="200" />
       <div v-else class="placeholder"></div>
     </div>
-  </div>
-  <div class="first-wrapper">
-    <div class="form__group">
-      <!-- <label class="form__group-label" for="simple-text">Any Text:</label> -->
-      <input
-        id="simple-text"
-        autocomplete="off"
-        class="form__group-input"
-        type="text"
-        name="simple-text"
-        placeholder="Enter your text here"
-        @keyup.enter="generateQr"
-        v-model="someData"
-      />
-    </div>
-  </div>
+  </section>
+  <section id="form">
+    <base-input
+      id="simple-text"
+      v-model="someData"
+      placeholder="Enter text here"
+    ></base-input>
+  </section>
+  <base-button title="Generate" @click="generateQr" />
 </template>
 <style lang="scss" scoped>
 .placeholder {
   height: 200px;
   width: 200px;
-  background: rgba($color: white, $alpha: 0.2); 
+  background: rgba($color: white, $alpha: 0.2);
 }
 </style>

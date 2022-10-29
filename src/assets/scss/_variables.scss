@@ -1,12 +1,14 @@
+// Main Font
+$font-family: 'Inter';
+
+// Main Colors
 $primary: #34495E;
 $secondary: #141E61;
 $info: #787A91;
 $link: #EEEEEE;
 
-$font-family: 'Inter';
+// Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-$breakpoint-xs: 320px;
-$breakpoint-sm: 475px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 960px;
-$breakpoint-xl: 1440px;
+// Transition
+$transition: all 0.3s ease;

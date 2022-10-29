@@ -8,57 +8,58 @@ export default defineComponent({
     const urlData = ref("");
     const store = useStore();
     let imageSrc = ref("");
-    let error = ref("");
     let urlRegex =
       /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
     let regex = new RegExp(urlRegex);
     let resultGlobalData = computed(() => store.getters.handleResult);
     watch(resultGlobalData, (val) => (imageSrc.value = val));
 
-    const generate = (e: any) => {
-      const data = e.target.value;
+    const generateQr = () => {
       if (urlData.value.match(regex)) {
-        error.value = "";
         const payload = urlData.value;
         store.dispatch("generateQrCode", payload);
       } else {
-        error.value = "Your link does not match the valid link pattern";
         imageSrc.value = "";
         console.log("error");
       }
     };
     return {
-      error,
       imageSrc,
       urlData,
-      generate,
+      generateQr,
     };
   },
 });
 </script>
 <template>
-  <div class="form__group">
-    <input
-      id="simple-text"
-      class="form__group-input"
-      type="text"
-      name="simple-text"
-      placeholder="http://your-url"
-      v-model="urlData"
-      @keyup.enter="generate"
-    />
-  </div>
-  <span class="error">{{ error }}</span>
-  <div class="second-wrapper">
+  <section id="result">
     <div class="form-result">
-      <img v-if="imageSrc" :src="imageSrc" alt="result" width="150" />
+      <img v-if="imageSrc" :src="imageSrc" alt="result" width="200" />
       <div v-else class="placeholder"></div>
     </div>
-  </div>
+  </section>
+  <section id="form">
+    <base-input
+      id="url"
+      v-model="urlData"
+      placeholder="Enter your URL"
+    ></base-input>
+    <span class="form-group__error" ref="err_message"
+      >Your link does not match the valid link pattern</span
+    >
+  </section>
+  <base-button title="Generate" @click="generateQr" />
 </template>
 <style lang="scss" scoped>
-.error {
+.form-group__error {
   font-size: 0.875rem;
   margin-top: -0.5rem;
+  font-weight: 600;
+  color: rgba(255, 0, 0, 0.8);
+}
+.placeholder {
+  height: 200px;
+  width: 200px;
+  background: rgba($color: white, $alpha: 0.2);
 }
 </style>
