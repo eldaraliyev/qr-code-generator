@@ -2,7 +2,7 @@
 import { ref, computed, defineComponent, reactive } from "vue";
 import { useStore } from "vuex";
 export default defineComponent({
-  name: "vcard-generator",
+  name: "vcard-form",
   setup() {
     const store = useStore();
     const imageSrc = ref("");
@@ -65,7 +65,6 @@ END:VCARD`;
 });
 </script>
 <template>
-  {{payload}}
   <section id="result">
     <div class="form-result">
       <img v-if="imageSrc" :src="imageSrc" alt="result" width="200" />

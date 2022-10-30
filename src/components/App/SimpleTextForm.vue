@@ -3,7 +3,7 @@ import { computed, defineComponent, ref, watch } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
-  name: "simple-generator",
+  name: "simple-text-form",
   setup() {
     const store = useStore();
     const someData = ref(null);

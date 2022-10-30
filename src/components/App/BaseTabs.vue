@@ -7,10 +7,10 @@ export default defineComponent({
   setup(_, { emit }) {
     const selectedTab = ref("");
     const options = ref([
-      { label: "Simple Text", value: "simple-generator" },
-      { label: "URL", value: "url-generator" },
-      { label: "Wi-Fi Sharing", value: "wifiacc-generator" },
-      { label: "VCard", value: "vcard-generator" },
+      { label: "Simple Text", value: "simple-text-form" },
+      { label: "URL", value: "url-form" },
+      { label: "Wi-Fi Sharing", value: "wifiacc-form" },
+      { label: "VCard ", value: "vcard-form" },
     ]);
     const toggleTab = (val: any) => {
       emit("toggleTab", val.target.value);

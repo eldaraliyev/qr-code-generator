@@ -15,7 +15,7 @@ import { defineComponent, ref } from "vue";
 export default defineComponent({
   name: "HomeView",
   setup() {
-    const selectedComponent = ref("simple-generator");
+    const selectedComponent = ref("simple-text-form");
     const toggleComponent = (val: string) => (selectedComponent.value = val);
     return {
       toggleComponent,

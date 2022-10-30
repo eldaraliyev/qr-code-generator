@@ -22,7 +22,7 @@ export default createStore({
       const URL = 'https://api.qrserver.com/v1/create-qr-code';
       const reader = new FileReader()
       try {
-        const res = await fetch(`${URL}/?data=${payload}&amp;size=;150x150`)
+        const res = await fetch(`${URL}/?data=${payload}&size=150x150&bgcolor=000&color=fff`)
         let result;
         const convertedImage = await res.blob()
         reader.readAsDataURL(convertedImage)
@@ -33,6 +33,6 @@ export default createStore({
       } catch (error) {
         throw new Error("Error during fetch");
       }
-    }
+    },
   },
 })
