@@ -58,7 +58,7 @@ export default defineComponent({
             id="ishidden"
             v-model="isHidden"
           />
-          <img src="@/assets/images/checkbox.svg" alt="" />
+          <img src="../../assets/images/checkbox.svg" alt="" />
         </div>
         <label for="ishidden"> Hidden Network </label>
       </div>

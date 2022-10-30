@@ -1,13 +1,5 @@
-const {defineConfig} = require("@vue/cli-service")
+module.exports = {
+  publicPath: process.env.NODE_ENV === 'production' ? '/qr-code-generator/' : '/',
+}
 
-module.exports = defineConfig({
-  publicPath: "/",
-  outputDir: "dist",
-  css: {
-    loaderOptions: {
-      sass: {
-        // prependData: `@import "@/assets/styles/app.scss"`
-      }
-    }
-  }
-})
+// git subtree push --prefix dist origin gh-pages
