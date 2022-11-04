@@ -1,29 +1,27 @@
+<script lang="ts">
+export default {
+  name: "HomeView",
+};
+</script>
+
+<script setup lang="ts">
+import { ref } from "vue";
+
+const selectedComponent = ref<string>("simple-text-form");
+const toggleComponent = (val: string) => (selectedComponent.value = val);
+</script>
+
 <template>
   <div class="home">
     <base-tabs @toggle-tab="toggleComponent"></base-tabs>
     <Transition mode="out-in">
       <div class="card">
-        <component :is="selectedComponent"/>
+        <component :is="selectedComponent" />
       </div>
     </Transition>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
-
-export default defineComponent({
-  name: "HomeView",
-  setup() {
-    const selectedComponent = ref("simple-text-form");
-    const toggleComponent = (val: string) => (selectedComponent.value = val);
-    return {
-      toggleComponent,
-      selectedComponent,
-    };
-  },
-});
-</script>
 <style lang="scss" scoped>
 .v-enter-active,
 .v-leave-active {

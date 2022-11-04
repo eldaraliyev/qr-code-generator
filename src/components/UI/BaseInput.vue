@@ -1,33 +1,25 @@
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-
-export default defineComponent({
+export default {
   name: "base-input",
-  emits: ["input"],
-  props: {
-    placeholder: {
-      type: String,
-      default: "Enter text here",
-    },
-    value: {
-      type: String,
-    },
-    id: {
-      type: String,
-    },
-    inputType: {
-      type: String,
-      default: 'text'
-    },
-  },
-  setup(props, { emit }) {
-    const inputVal = ref(props.value);
-    function handleInput() {
-      emit("input", inputVal.value);
-    }
-    return { inputVal, handleInput };
-  },
+};
+</script>
+
+<script setup lang="ts">
+import { ref, defineProps, defineEmits } from "vue";
+
+const props = defineProps({
+  placeholder: String,
+  value: String,
+  id: String,
+  inputType: String,
 });
+
+const emit = defineEmits(["input"]);
+
+const inputVal = ref<any>(props.value);
+function handleInput() {
+  emit("input", inputVal.value);
+}
 </script>
 
 <template>

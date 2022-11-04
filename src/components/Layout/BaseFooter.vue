@@ -1,17 +1,14 @@
 <script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: 'base-footer',
-  setup() {
-    return {};
-  },
-});
+export default {
+  name: "base-footer",
+};
 </script>
 <template>
   <footer class="footer">
     <div class="container">
-      {{`${new Date().getFullYear()} © Created with passion by Eldar Aliyev.`}}
+      {{
+        `${new Date().getFullYear()} © Created with passion by Eldar Aliyev.`
+      }}
     </div>
   </footer>
 </template>
@@ -20,7 +17,7 @@ export default defineComponent({
 .footer {
   width: 100%;
   .container {
-    padding: 1.5rem 0 ;
+    padding: 1.5rem 0;
     max-width: 1140px;
     margin: 0 auto;
   }

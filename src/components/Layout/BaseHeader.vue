@@ -1,12 +1,7 @@
 <script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: 'base-header',
-  setup() {
-    return {};
-  },
-});
+export default {
+  name: "base-header",
+};
 </script>
 
 <template>

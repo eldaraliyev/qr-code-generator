@@ -1,32 +1,28 @@
 <script lang="ts">
-import { defineComponent, ref, watch, computed } from "vue";
+export default {
+  name: "wifiacc-form",
+};
+</script>
+
+<script setup lang="ts">
+import { ref, computed, watch } from "vue";
 import { useStore } from "vuex";
 
-export default defineComponent({
-  name: "wifiacc-form",
-  setup() {
-    const secureType = ref("");
-    const network_name = ref(null);
-    const password = ref(null);
-    const isHidden = ref(false);
-    const store = useStore();
-    let imageSrc = ref("");
-    let resultGlobalData = computed(() => store.getters.handleResult);
-    watch(resultGlobalData, (val) => (imageSrc.value = val));
-    const generateQr = async () => {
-      let payload = `WIFI:T:${secureType.value};S:${network_name.value};P:${password.value};H:${isHidden.value}`;
-      store.dispatch("generateQrCode", payload);
-    };
-    return {
-      imageSrc,
-      secureType,
-      network_name,
-      password,
-      isHidden,
-      generateQr,
-    };
-  },
-});
+const store = useStore();
+
+const secureType = ref<"nopass" | "WEP" | "WPA" | "">("");
+const network_name = ref<string>("");
+const password = ref<string>("");
+const isHidden = ref<boolean>(false);
+let imageSrc = ref<string>("");
+
+let resultGlobalData = computed(() => store.getters.handleResult);
+watch(resultGlobalData, (val: string) => (imageSrc.value = val));
+
+const generateQr = async () => {
+  let payload = `WIFI:T:${secureType.value};S:${network_name.value};P:${password.value};H:${isHidden.value}`;
+  store.dispatch("generateQrCode", payload);
+};
 </script>
 <template>
   <section id="result">
@@ -148,7 +144,7 @@ input[type="radio"] + label {
   display: inline-block;
   padding-left: 1.5rem;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     height: 16px;
     width: 16px;
@@ -159,23 +155,23 @@ input[type="radio"] + label {
     background-color: transparent;
   }
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     height: 12px;
     width: 12px;
     border-radius: 50%;
     top: 3px;
     left: 3px;
-    background-color: #445FE8;
+    background-color: #445fe8;
     transition: all 200ms;
   }
 }
-input[type='radio']:not(:checked) + label::after {
-  opacity: 0; 
+input[type="radio"]:not(:checked) + label::after {
+  opacity: 0;
   -webkit-transform: scale(0);
   transform: scale(0);
 }
-input[type='radio']:checked + label::after {
+input[type="radio"]:checked + label::after {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);

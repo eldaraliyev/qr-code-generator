@@ -1,22 +1,19 @@
 <script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
+export default {
   name: "base-button",
-  emits: ["btnClick"],
-  props: {
-    title: {
-      type: String,
-      default: "Click",
-    },
-  },
-  setup(_, { emit }) {
-    function handleClick() {
-      emit("btnClick");
-    }
-    return { handleClick };
-  },
+};
+</script>
+
+<script setup lang="ts">
+import { defineProps, defineEmits } from "vue";
+
+const props = defineProps({
+  title: String,
 });
+const emit = defineEmits(["btnClick"]);
+function handleClick() {
+  emit("btnClick");
+}
 </script>
 
 <template>

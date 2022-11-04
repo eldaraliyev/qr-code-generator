@@ -1,16 +1,20 @@
-import { createStore } from 'vuex'
+import { ActionContext, createStore } from 'vuex'
 
-export default createStore({
+export interface State {
+  result: string | null
+}
+
+export default createStore<State>({
   state: {
     result: null,
   },
   getters: {
-    handleResult(state) {
+    handleResult(state: State) {
       return state.result
     }
   },
   mutations: {
-    saveResult(state, value) {
+    saveResult(state: State, value: string) {
       state.result = value
     },
     resetResult(state) {
@@ -18,11 +22,12 @@ export default createStore({
     }
   },
   actions: {
-    async generateQrCode(context, payload) {
+    async generateQrCode(context: ActionContext<State, State>, payload) {
       const URL = 'https://api.qrserver.com/v1/create-qr-code';
       const reader = new FileReader()
       try {
-        const res = await fetch(`${URL}/?data=${payload}&size=150x150&bgcolor=000&color=fff`)
+        // const res = await fetch(`${URL}/?data=${payload}&size=150x150&bgcolor=000&color=fff`)
+        const res = await fetch(`${URL}/?data=${payload}&size=150x150`)
         let result;
         const convertedImage = await res.blob()
         reader.readAsDataURL(convertedImage)

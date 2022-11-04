@@ -1,11 +1,18 @@
 {
   "name": "qr-code-generate-vue-app",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
+  "homepage": "https://eldaraliyev.github.io/qr-code-generator/",
+  "author": {
+    "name": "Eldar Aliyev",
+    "email": "eldar.alv@gmail.com",
+    "url": "https://github.com/eldaraliyev"
+  },
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --open --port 8800",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dist": "serve dist/"
   },
   "dependencies": {
     "axios": "^0.27.2",

@@ -1,68 +1,44 @@
 <script lang="ts">
-import { ref, computed, defineComponent, reactive } from "vue";
-import { useStore } from "vuex";
-export default defineComponent({
+export default {
   name: "vcard-form",
-  setup() {
-    const store = useStore();
-    const imageSrc = ref("");
-    const formData = reactive({
-      name: "",
-      surname: "",
-      mobile: "",
-      phone: "",
-      fax: "",
-      email: "",
-      company: "",
-      job_title: "",
-      street: "",
-      city: "",
-      zip: "",
-      state: "",
-      country: "",
-      website: "",
-    });
-    const resultGlobalData = computed(() => store.getters.handleResult);
-    const payload = computed(() => {
-      return `  BEGIN:VCARD 
-VERSION:3.0
-N:${formData.surname};${formData.name}
-FN:${formData.name} ${formData.surname}
-ORG:${formData.company}
-TITLE:${formData.job_title}
-ADR:;;${formData.street};${formData.city};${formData.state};${formData.zip};${formData.country}
-TEL;WORK;VOICE:${formData.phone}
-TEL;CELL:${formData.mobile}
-TEL;FAX:${formData.fax}
-EMAIL;WORK;INTERNET:${formData.email}
-URL:${formData.website}
-END:VCARD`;
-    });
-    const generateQr = async () => {
-      store.dispatch("generateQrCode", payload.value);
-      imageSrc.value = resultGlobalData.value;
-    };
-    // BEGIN:VCARD
-    // VERSION:3.0
-    // N:Aliyev;Eldar
-    // FN:Eldar Aliyev
-    // ORG:Hostart
-    // TITLE:Front-end Dev
-    // ADR:;;Chaykovski;Baku;Narimanov;1154;Azerbaijan
-    // TEL;WORK;VOICE:+994125669398
-    // TEL;CELL:+994553499610
-    // TEL;FAX:
-    // EMAIL;WORK;INTERNET:eldar.alv@gmail.com
-    // URL:https://my-portfolio.com
-    // END:VCARD
-    return {
-      payload,
-      imageSrc,
-      formData,
-      generateQr,
-    };
-  },
+};
+</script>
+
+<script setup lang="ts">
+import { ref,  reactive, computed, watch } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+
+const imageSrc = ref<string>("");
+const formData = reactive({
+  name: "",
+  surname: "",
+  mobile: "",
+  phone: "",
+  fax: "",
+  email: "",
+  company: "",
+  job_title: "",
+  street: "",
+  city: "",
+  zip: "",
+  state: "",
+  country: "",
+  website: "",
 });
+const resultGlobalData = computed(() => store.getters.handleResult);
+const payload = computed(() => {
+  return `BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3A${formData.surname}%3B${formData.name}%0AFN%3A${formData.name}%20${formData.surname}%0AORG%3A${formData.company}%0ATITLE%3A${formData.job_title}%0AADR%3A%3B%3B${formData.street}%3B${formData.city}%3B${formData.state}%3B${formData.zip}%3B${formData.country}%0ATEL%3BWORK%3BVOICE%3A%0ATEL%3BCELL%3A${formData.phone}%0ATEL%3BFAX%3A%0AEMAIL%3BWORK%3BINTERNET%3A${formData.email}%0AURL%3A${formData.website}%0AEND%3AVCARD%0A
+`;
+});
+
+watch(resultGlobalData, (val: string) => (imageSrc.value = val));
+const generateQr = async () => {
+  store.dispatch("generateQrCode", payload.value);
+  imageSrc.value = resultGlobalData.value;
+};
+
 </script>
 <template>
   <section id="result">
@@ -104,12 +80,12 @@ END:VCARD`;
     />
     <base-input
       id="city-name"
-      placeholder="Enter City Name"
+      placeholder="Enter City"
       v-model="formData.city"
     />
     <base-input
       id="country-name"
-      placeholder="Enter Country Name"
+      placeholder="Enter Country"
       v-model="formData.country"
     />
     <base-input

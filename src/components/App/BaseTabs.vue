@@ -1,24 +1,25 @@
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-
-export default defineComponent({
+export default {
   name: "base-tabs",
-  emits: ["toggleTab"],
-  setup(_, { emit }) {
-    const selectedTab = ref("");
-    const options = ref([
-      { label: "Simple Text", value: "simple-text-form" },
-      { label: "URL", value: "url-form" },
-      { label: "Wi-Fi Sharing", value: "wifiacc-form" },
-      { label: "VCard ", value: "vcard-form" },
-    ]);
-    const toggleTab = (val: any) => {
-      emit("toggleTab", val.target.value);
-    };
+};
+</script>
 
-    return { options, selectedTab, toggleTab };
-  },
-});
+<script setup lang="ts">
+import { ref, defineEmits } from "vue";
+
+const emit = defineEmits(["toggleTab"])
+
+const selectedTab = ref<string>("");
+const options = ref<{label: string, value: string}[]>([
+  { label: "Simple Text", value: "simple-text-form" },
+  { label: "URL", value: "url-form" },
+  { label: "Wi-Fi Sharing", value: "wifiacc-form" },
+  { label: "VCard ", value: "vcard-form" },
+]);
+const toggleTab = (val: any) => {
+  emit("toggleTab", val.target.value);
+};
+
 </script>
 <template>
   <div class="tabs">
@@ -62,6 +63,7 @@ $hover: darken(
       flex-direction: row;
       justify-content: space-around;
       gap: 1rem;
+      flex-wrap: wrap;
     }
     &-button {
       font-size: 1rem;

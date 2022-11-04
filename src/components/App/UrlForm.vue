@@ -1,39 +1,36 @@
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from "vue";
+export default {
+  name: "url-form",
+};
+</script>
+
+<script setup lang="ts">
+import { ref, computed, watch } from "vue";
 import { useStore } from "vuex";
 
-export default defineComponent({
-  name: "url-form",
-  setup() {
-    const urlData = ref("");
-    const store = useStore();
-    let imageSrc = ref("");
-    let isError = ref(false)
-    let urlRegex =
-      /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
-    let regex = new RegExp(urlRegex);
-    let resultGlobalData = computed(() => store.getters.handleResult);
-    watch(resultGlobalData, (val) => (imageSrc.value = val));
+const store = useStore();
 
-    const generateQr = () => {
-      if (urlData.value.match(regex)) {
-        const payload = urlData.value;
-        isError.value = false
-        store.dispatch("generateQrCode", payload);
-      } else {
-        imageSrc.value = "";
-        isError.value = true
-        console.log("error");
-      }
-    };
-    return {
-      imageSrc,
-      isError,
-      urlData,
-      generateQr,
-    };
-  },
-});
+const urlData = ref<string>("");
+const imageSrc = ref<string>("");
+const isError = ref<boolean>(false);
+
+const urlRegex =
+  /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+const regex = new RegExp(urlRegex);
+
+let resultGlobalData = computed(() => store.getters.handleResult);
+watch(resultGlobalData, (val:string) => (imageSrc.value = val));
+
+const generateQr = () => {
+  if (urlData.value.match(regex)) {
+    const payload = urlData.value;
+    isError.value = false;
+    store.dispatch("generateQrCode", payload);
+  } else {
+    imageSrc.value = "";
+    isError.value = true;
+  }
+};
 </script>
 <template>
   <section id="result">
