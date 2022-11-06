@@ -1,9 +1,0 @@
-@mixin flexMixin($var1, $var2) {
-  display: flex;
-  justify-content: $var1;
-  align-items: $var2;
-}
-
-@mixin boxShadow {
-  box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
-}
