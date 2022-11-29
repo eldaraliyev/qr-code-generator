@@ -62,10 +62,8 @@ const toggleTab = (val: any) => {
       font-weight: 600;
       cursor: pointer;
       padding: 1rem;
-      border-radius: 0.5rem;
       transition: $transition;
       &:hover {
-        box-shadow: $box-shadow;
         color: lighten($color: $font-tab, $amount: 5);
       }
     }
