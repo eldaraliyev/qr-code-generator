@@ -1,0 +1,25 @@
+@import "./variables";
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  padding: 10px;
+  background-color: transparent;
+  
+  html[data-theme="light"] & {
+    &-track {
+      background-color: $scrollbar-track;
+    }
+    &-thumb {
+      background-color: $scrollbar-thumb;
+    }
+  }
+  html[data-theme="dark"] & {
+    &-track {
+      background-color: $scrollbar-track-dark;
+    }
+    &-thumb {
+      background-color: $scrollbar-thumb-dark;
+    }
+  }
+}

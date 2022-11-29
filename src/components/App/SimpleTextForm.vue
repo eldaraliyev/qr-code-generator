@@ -31,18 +31,20 @@ const generateQr = async () => {
     </div>
   </section>
   <section id="form">
-    <base-input
-      id="simple-text"
-      v-model="targetData"
-      placeholder="Enter text"
-    ></base-input>
+    <div class="form-group">
+      <base-input
+        id="simple-text"
+        v-model="targetData"
+        placeholder="Enter text"
+      ></base-input>
+    </div>
   </section>
   <base-button title="Generate" @click="generateQr" />
 </template>
 <style lang="scss" scoped>
+@import "@/assets/scss/app.scss";
 .placeholder {
-  height: 200px;
-  width: 200px;
-  background: rgba($color: white, $alpha: 0.2);
+  @include size(200px, 200px);
+  background: lighten($color: $placeholder, $amount: 5);
 }
 </style>

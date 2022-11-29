@@ -11,9 +11,9 @@ const emit = defineEmits(["toggleTab"])
 
 const selectedTab = ref<string>("");
 const options = ref<{label: string, value: string}[]>([
-  { label: "Simple Text", value: "simple-text-form" },
+  { label: "Text", value: "simple-text-form" },
   { label: "URL", value: "url-form" },
-  { label: "Wi-Fi Sharing", value: "wifiacc-form" },
+  { label: "Wi-Fi", value: "wifiacc-form" },
   { label: "VCard ", value: "vcard-form" },
 ]);
 const toggleTab = (val: any) => {
@@ -46,23 +46,15 @@ const toggleTab = (val: any) => {
 </template>
 
 <style lang="scss" scoped>
-$hover: darken(
-  $color: #fff,
-  $amount: 10,
-);
+@import "@/assets/scss/app";
 .tabs {
+  @include flex(center, center, row, 0.5rem);
   width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
   padding: 1.5rem 0;
-
+  
   &__radio {
     &-group {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      gap: 1rem;
+      @include flex(center, space-around, row, 1rem);
       flex-wrap: wrap;
     }
     &-button {
@@ -71,10 +63,10 @@ $hover: darken(
       cursor: pointer;
       padding: 1rem;
       border-radius: 0.5rem;
-      transition: all 250ms ease 0s;
+      transition: $transition;
       &:hover {
-        box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
-        color: #9499ff;
+        box-shadow: $box-shadow;
+        color: lighten($color: $font-tab, $amount: 5);
       }
     }
     &-input {
@@ -83,7 +75,7 @@ $hover: darken(
   }
 }
 .selected {
-  color: #9499ff;
+  color: $font-tab;
 }
 .custom__tab {
   position: relative;
@@ -92,11 +84,9 @@ $hover: darken(
     display: none;
   }
   &-label {
-    transition: 0.25s;
+    transition: $transition;
     width: 100%;
-    // @extend %button_style;
-    // background-color: red;
-  }
+   }
   &-checkbox:checked ~ .tabs {
     background-color: darken($color: #fff, $amount: 50);
     color: #fff;

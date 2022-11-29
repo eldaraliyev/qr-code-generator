@@ -23,6 +23,9 @@ const toggleComponent = (val: string) => (selectedComponent.value = val);
 </template>
 
 <style lang="scss" scoped>
+.home {
+  min-height: calc(100vh - 180px);
+}
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.2s ease;

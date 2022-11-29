@@ -32,7 +32,7 @@ const generateQr = async () => {
     </div>
   </section>
   <section id="form">
-    <div class="row">
+    <div class="main__input">
       <base-input
         id="network-name"
         placeholder="Enter Network Name"
@@ -58,9 +58,9 @@ const generateQr = async () => {
         </div>
         <label for="ishidden"> Hidden Network </label>
       </div>
-      <div class="radio__group">
-        <p class="radio__group-label">Security Protocol:</p>
-        <div class="radio__group-buttons">
+      <div class="security__protocol">
+        <p class="security__protocol-label">Security Protocol:</p>
+        <div class="security__protocol-buttons">
           <input
             type="radio"
             name="none"
@@ -93,103 +93,48 @@ const generateQr = async () => {
 </template>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/app.scss";
+.main__input {
+  margin-top: 1rem;
+}
 .row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-
+  @include flex(center, space-between, row, 0);
+  flex-wrap: wrap;
   &.m-1 {
-    margin: 0 1rem 1rem 1rem;
+    margin: 1rem;
+  }
+  &.mt-0 {
+    margin-top: 0;
   }
 }
 
-.custom-checkbox {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.checkbox {
-  cursor: pointer;
-  width: 1rem;
-  height: 1rem;
-  border: 1px solid #333333de;
-  border-radius: 0.25rem;
-  position: relative;
-  img {
-    width: 75%;
-    height: 75%;
-    opacity: 0;
-    transition: all 100ms;
-  }
-  &-hidden {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 1rem;
-    width: 1rem;
-    margin: 0;
-    opacity: 0;
-  }
-  &-hidden:checked ~ img {
-    opacity: 1;
-  }
-}
-input[type="radio"] {
-  opacity: 0;
-  position: absolute;
-}
-input[type="radio"] + label {
-  position: relative;
-  display: inline-block;
-  padding-left: 1.5rem;
-  &::before {
-    content: "";
-    position: absolute;
-    height: 16px;
-    width: 16px;
-    border: 1px solid #333333de;
-    border-radius: 50%;
-    top: 0;
-    left: 0;
-    background-color: transparent;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    height: 12px;
-    width: 12px;
-    border-radius: 50%;
-    top: 3px;
-    left: 3px;
-    background-color: #445fe8;
-    transition: all 200ms;
-  }
-}
-input[type="radio"]:not(:checked) + label::after {
-  opacity: 0;
-  -webkit-transform: scale(0);
-  transform: scale(0);
-}
-input[type="radio"]:checked + label::after {
-  opacity: 1;
-  -webkit-transform: scale(1);
-  transform: scale(1);
-}
-.radio__group {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
+.security__protocol {
+  @include flex(center, center, row, 1.5rem);
   &-buttons {
-    display: flex;
-    gap: 0.5rem;
+    @include flex(center, center, row, 0.5rem);
   }
 }
 .placeholder {
-  height: 200px;
-  width: 200px;
-  background: rgba($color: white, $alpha: 0.2);
+  @include size(200px, 200px);
+  background: lighten($color: $placeholder, $amount: 5);
+}
+@media screen and (max-width: 575px) {
+  .main__input {
+    @include flex(center, center, column, 0);
+    margin: 1rem
+  }
+  .row {
+    @include flex(center, space-between, column, 0);
+  }
+  .security__protocol {
+    flex-direction: column;
+    &-label {
+      margin-top: 2rem;
+    }
+    &-buttons {
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }    
+  }
 }
 </style>

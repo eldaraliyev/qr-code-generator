@@ -1,0 +1,16 @@
+export default interface Vcard {
+  name: string,
+  surname: string,
+  mobile: string | number | null,
+  phone: string | number | null,
+  fax: string | number | null,
+  email: string,
+  company: string,
+  job_title: string,
+  street: string,
+  city: string,
+  zip: string | number,
+  state: string,
+  country: string,
+  website: string,
+}

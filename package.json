@@ -9,7 +9,7 @@
     "url": "https://github.com/eldaraliyev"
   },
   "scripts": {
-    "serve": "vue-cli-service serve --open --port 8800",
+    "serve": "vue-cli-service serve --port 8800",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "dist": "serve dist/"

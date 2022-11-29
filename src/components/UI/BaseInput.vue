@@ -16,7 +16,7 @@ const props = defineProps({
 
 const emit = defineEmits(["input"]);
 
-const inputVal = ref<any>(props.value);
+const inputVal = ref<unknown>(props.value);
 function handleInput() {
   emit("input", inputVal.value);
 }
@@ -35,27 +35,47 @@ function handleInput() {
 </template>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/variables";
 .input-field {
   font-size: 1rem;
   min-width: 250px;
   max-width: 100%;
-  background-color: #333333de;
   padding: 1rem 1.125rem;
   margin: 1rem;
   border: 1px solid transparent;
   border-radius: 0.5rem;
-  caret-color: #fff;
-  transition: all 300ms;
-  color: #eee;
-  &::placeholder {
-    color: #ccc;
-    transition: all 300ms;
-  }
-  &:focus {
+  transition: $transition;
+}
+html[data-theme="light"] {
+  .input-field {
+    background-color: $bg-input;
+    color: $font-input;
+    &::placeholder {
+      color: $font-input-placeholder;
+      transition: $transition;
+    }
+    &:focus {
     outline: none;
     &::placeholder {
-      color: #777;
+      color: $font-input-placeholder-focus;
     }
+  }
+  }
+}
+html[data-theme="dark"] {
+  .input-field {
+    background-color: $bg-input-dark;
+    color: $font-input-dark;
+    &::placeholder {
+      color: $font-input-dark-placeholder;
+      transition: $transition;
+    }
+    &:focus {
+    outline: none;
+    &::placeholder {
+      color: $font-input-dark-placeholder-focus;
+    }
+  }
   }
 }
 </style>

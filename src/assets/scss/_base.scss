@@ -1,16 +1,28 @@
 @import "./variables";
 #app {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #ffffffde;
-  background-color: #242424;
   min-height: 100vh;
   height: 100%;
+  transition: $transition;
+
+  html[data-theme="light"] & {
+    color: $font-color;
+    background-color: $bg-color;
+  }
+
+  html[data-theme="dark"] & {
+    color: $font-color-dark;
+    background-color: $bg-color-dark;
+  }
 }
 
 input {
   font-family: $font-family;
 }
 
+.form-group {
+  margin: 1rem 0;
+}
