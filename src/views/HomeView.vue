@@ -9,6 +9,8 @@ import { ref } from "vue";
 
 const selectedComponent = ref<string>("simple-text-form");
 const toggleComponent = (val: string) => (selectedComponent.value = val);
+
+console.log(process.env.BASE_URL);
 </script>
 
 <template>
