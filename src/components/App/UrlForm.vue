@@ -55,7 +55,7 @@ const generateQr = () => {
   <base-button title="Generate" @click="generateQr" />
 </template>
 <style lang="scss" scoped>
-@import "@/assets/scss/app.scss";
+@import "../../assets/scss/global";
 .form-group {
   @include flex(left, start, column, 0);
 }

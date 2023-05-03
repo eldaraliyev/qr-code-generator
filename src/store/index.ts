@@ -1,73 +1,66 @@
-import { ActionContext, createStore } from 'vuex'
+import {ActionContext, createStore} from 'vuex'
 
 export interface State {
-  result: string | null,
-  layout: string | null,
+    qr_code: string | null,
+    layout: string | null,
 }
 
 export default createStore<State>({
-  state: {
-    result: null,
-    layout: null,
-  },
-  getters: {
-    handleResult(state: State) {
-      return state.result
+    state: {
+        qr_code: null,
+        layout: null,
     },
-    handleLayout(state: State) {
-      return state.layout
+
+    getters: {
+        GET_QR_CODE: (state: State) => state.qr_code,
+        GET_LAYOUT: (state: State) => state.layout,
+        IS_DARK_MODE_ENABLED: (state: State) => state?.layout && state?.layout === 'dark'
     },
-    isDark(state: State) {
-      return state.layout === 'dark' 
-    }
-  },
-  mutations: {
-    saveResult(state: State, value: string) {
-      state.result = value
-    },
-    resetResult(state: State) {
-      state.result = null
-    },
-    changeLayout(state: State, value: string) {
-      state.layout = value
-    }
-  },
-  actions: {
-    async generateQrCode(context: ActionContext<State, State>, payload) {
-      const URL = 'https://api.qrserver.com/v1/create-qr-code';
-      const reader = new FileReader()
-      try {
-        const res = await fetch(`${URL}/?data=${payload}&size=150x150`)
-        let result;
-        const convertedImage = await res.blob()
-        reader.readAsDataURL(convertedImage)
-        reader.onloadend = () => {
-          result = reader.result
-          context.commit('saveResult', result)
+
+    mutations: {
+        SET_QR_CODE: (state: State, value: string) => {
+            if (value) state.qr_code = value
+        },
+        RESET_QR_CODE: (state: State) => state.qr_code = null,
+        SET_LAYOUT: (state: State, value: string | null) => {
+            state.layout = value
         }
-      } catch (error: unknown) {
-        throw new Error("Error during fetch");
-      }
     },
-    setDocumentTheme(context: ActionContext<State, State>, theme: string) {
-      document.documentElement.setAttribute('data-theme', theme)
-      context.commit('changeLayout', theme)
+
+    actions: {
+        GENERATE_QR_CODE: async ({commit}: ActionContext<State, State>, payload: any) => {
+            const FETCH_URL = 'https://api.qrserver.com/v1/create-qr-code'
+            const FILE_READER = new FileReader()
+            try {
+                const resposne = await fetch(`${FETCH_URL}/?data=${payload}&size=150x150`)
+                const image = await resposne.blob()
+                FILE_READER.readAsDataURL(image)
+                FILE_READER.onloadend = () => {
+                    commit("SET_QR_CODE", FILE_READER.result)
+                }
+            } catch (error: unknown) {
+                throw new Error("Something going wrong during fetch. Make your API call again.")
+            }
+        },
+        INIT_LAYOUT_THEME: ({dispatch}: ActionContext<State, State>) => {
+            if (localStorage.layout && localStorage.layout === 'dark') {
+                dispatch("SET_LAYOUT_THEME", "dark")
+            } else {
+                dispatch("SET_LAYOUT_THEME", "light")
+            }
+        },
+        SET_LAYOUT_THEME: ({commit}: ActionContext<State, State>, theme: string) => {
+            document.documentElement.setAttribute('data-theme', theme)
+            commit("SET_LAYOUT", theme)
+        },
+        TOGGLE_LAYOUT_THEME: ({dispatch}: ActionContext<State, State>) => {
+            if (localStorage.layout === 'dark') {
+                localStorage.setItem('layout', 'light')
+                dispatch("SET_LAYOUT_THEME", 'light')
+            } else {
+                localStorage.setItem('layout', 'dark')
+                dispatch("SET_LAYOUT_THEME", 'dark')
+            }
+        }
     },
-    toggleLayout(context: ActionContext<State, State>) {
-      if (localStorage.layout === 'dark') {
-        localStorage.setItem('layout', 'light')
-        context.dispatch('setDocumentTheme', 'light')
-      } else {
-        localStorage.setItem('layout', 'dark')
-        context.dispatch('setDocumentTheme', 'dark')
-      }
-    },
-    initLayout(context: ActionContext<State, State>) {
-      if (localStorage.layout && localStorage.layout === 'dark') {
-        context.dispatch('setDocumentTheme', 'dark')
-      } else {
-        context.dispatch('setDocumentTheme', 'light')
-      }
-    }
-  },
 })

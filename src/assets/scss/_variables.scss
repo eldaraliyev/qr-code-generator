@@ -9,7 +9,7 @@ $neutral-600: #525252;
 $neutral-700: #404040;
 $neutral-800: #262626;
 $neutral-900: #171717;
-$indigo-500: #6366f1;
+$indigo-500: #7024EC;
 $indigo-600: #4f46e5;
 $indigo-800: #3730a3;
 $red-600: #ef4444;
@@ -55,13 +55,10 @@ $scrollbar-thumb: $neutral-600;
 $scrollbar-thumb-dark: $neutral-400;
 
 // Box Shadow 
-$box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+$box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
 // Main Font
-$font-family: "Inter";
-
-// Google Fonts
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+$font-family: "Raleway";
 
 // Transition
 $transition: all 200ms ease;

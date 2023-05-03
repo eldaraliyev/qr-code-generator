@@ -93,7 +93,7 @@ const generateQr = async () => {
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/app.scss";
+@import "../../assets/scss/global";
 .main__input {
   margin-top: 1rem;
 }

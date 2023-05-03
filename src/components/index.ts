@@ -10,6 +10,7 @@ import BaseFooter from "./Layout/BaseFooter.vue";
 import BaseTabs from "./App/BaseTabs.vue"
 import SimpleTextForm from "./App/SimpleTextForm.vue"
 import UrlForm from "./App/UrlForm.vue"
+import PhoneNumber from "./App/PhoneNumber.vue";
 import WifiAccountForm from "./App/WifiAccountForm.vue"
 import VcardForm from "./App/VcardForm.vue"
 
@@ -21,6 +22,7 @@ export default [
   BaseTabs,
   SimpleTextForm,
   UrlForm,
+  PhoneNumber,
   WifiAccountForm,
   VcardForm
 ]

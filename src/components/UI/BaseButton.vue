@@ -1,3 +1,9 @@
+<template>
+  <button v-bind="$attrs" class="btn btn-primary" @click="handleClick">
+    {{ title }}
+  </button>
+</template>
+
 <script lang="ts">
 export default {
   name: "base-button",
@@ -5,50 +11,38 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from "vue";
+import {defineProps, defineEmits} from "vue";
 
 defineProps({
   title: String,
 });
 const emit = defineEmits(["btnClick"]);
+
 function handleClick(e: Event) {
   emit("btnClick");
 }
 </script>
 
-<template>
-  <button v-bind="$attrs" class="btn btn-primary" @click="handleClick">
-    {{ title }}
-  </button>
-</template>
 
-<style lang="scss" scoped>
-@import "@/assets/scss/variables";
+<style lang="scss">
+@import "../../assets/scss/variables";
+
 .btn {
-  min-width: 250px;
-  max-width: 250px;
-  transition: $transition;
+  all: unset;
   cursor: pointer;
-  border: 0;
-  font: inherit;
+  font-size: 24px;
+  font-weight: 700;
+  border-radius: 1rem;
+  padding: 0.75rem 2rem;
+  transition: $transition;
   box-shadow: $box-shadow;
-  border-radius: 0.5rem;
-  padding: 1rem 1.5rem;
-  &-primary {
-    html[data-theme="light"] & {
-      background-color: $bg-button;
-      color: $font-button;
-      &:hover {
-        background-color: darken($color: $bg-button, $amount: 5);
-      }
-    }
-    html[data-theme="dark"] & {
-      background-color: $bg-button-dark;
-      color: $font-button-dark;
-      &:hover {
-        background-color: darken($color: $bg-button-dark, $amount: 5);
-      }
-    }
+  background-color: $bg-button;
+  color: $font-button;
+  &:hover {
+    background-color: #4F1CA3;
+  }
+  &[type='reset'] {
+    background-color: #e35d60;
   }
 }
 </style>

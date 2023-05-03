@@ -1,46 +1,51 @@
-<script lang="ts">
-export default {
-  name: "base-header",
-};
-</script>
-
 <template>
   <header class="header">
     <div class="container">
-      <img class="app-logo" src="@/assets/images/main-logo.svg" alt="logo" />
-      <p class="logo-subtitle">Create your own QR-code 👇</p>
+      <img class="app-logo" src="../../assets/images/main-logo.svg" alt="logo"/>
+      <mode-toggle></mode-toggle>
     </div>
   </header>
 </template>
+<script lang="ts">
+import BaseModeToggle from "../../components/UI/BaseModeToggle.vue";
+
+export default {
+  components: {
+    'mode-toggle': BaseModeToggle
+  },
+  name: "base-header",
+
+};
+</script>
+
 
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
+@import "../../assets/scss/variables";
+
 .header {
-  padding: 1.5rem 0 0.75rem;
+  padding: 1rem;
+
   .container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: auto;
 
-    .logo-subtitle {
-      line-height: 2;
-      font-weight: 800;
-      font-size: 1rem;
-    }
   }
 }
+
 html[data-theme="light"] {
-  .header .app-logo {
-    filter: invert(1);
-  }
-  .logo-subtitle {
-    color: $font-color;
-  }
-}
-html[data-theme="dark"] {
   .header .app-logo {
     filter: invert(0);
   }
-  .logo-subtitle {
-    color: $font-color-dark;
+
+
+}
+
+html[data-theme="dark"] {
+  .header .app-logo {
+    filter: invert(1);
   }
 }
 </style>

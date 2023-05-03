@@ -1,11 +1,9 @@
 @import "./variables";
 #app {
-  font-family: "Inter", sans-serif;
+  font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  min-height: 100vh;
-  height: 100%;
   transition: $transition;
 
   html[data-theme="light"] & {

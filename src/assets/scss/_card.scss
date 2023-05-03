@@ -3,17 +3,12 @@
   @include flex(center, center, column, 0);
   padding: 2rem;
   margin: 0 auto;
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
-  box-shadow: $box-shadow;
-  
+
   html[data-theme="light"] & {
     color: $font-color;
-    background-color: $bg-color-card;
   }
 
   html[data-theme="dark"] & {
     color: $font-color-dark;
-    background-color: $bg-color-card-dark;
   }
 }

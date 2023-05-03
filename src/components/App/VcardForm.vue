@@ -6,7 +6,7 @@ export default {
 
 <script setup lang="ts">
 import { ref, reactive, computed, watch } from "vue";
-import Vcard from "@/types/vcard";
+import Vcard from "../../types/vcard";
 import { useStore } from "vuex";
 
 const store = useStore();
@@ -64,11 +64,13 @@ const generateQr = async () => {
     <div class="input-group">
       <base-input
         id="phone-number"
+        inputmode="tel"
         placeholder="Enter Phone Number"
         v-model="formData.phone"
       />
       <base-input
         id="email-address"
+        inputmode="email"
         placeholder="Enter Email Address"
         v-model="formData.email"
       />
@@ -96,6 +98,7 @@ const generateQr = async () => {
     <div class="input-personal-website">
       <base-input
         id="personal-website"
+        inputmode="url"
         placeholder="Enter your Personal Website"
         v-model="formData.website"
       />
@@ -104,7 +107,7 @@ const generateQr = async () => {
   <base-button title="Generate" @click="generateQr" />
 </template>
 <style lang="scss" scoped>
-@import "@/assets/scss/app";
+@import "../../assets/scss/global";
 .form-container {
   @include flex(start, space-evenly, row, 0);
   flex-wrap: wrap;

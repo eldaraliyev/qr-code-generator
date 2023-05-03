@@ -35,7 +35,7 @@ function handleInput() {
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/variables";
+@import "../../assets/scss/variables";
 .input-field {
   font-size: 1rem;
   min-width: 250px;
@@ -45,6 +45,7 @@ function handleInput() {
   border: 1px solid transparent;
   border-radius: 0.5rem;
   transition: $transition;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
 }
 html[data-theme="light"] {
   .input-field {

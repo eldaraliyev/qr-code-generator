@@ -13,6 +13,7 @@ const selectedTab = ref<string>("");
 const options = ref<{label: string, value: string}[]>([
   { label: "Text", value: "simple-text-form" },
   { label: "URL", value: "url-form" },
+  { label: "Phone Number", value: "phone-number"},
   { label: "Wi-Fi", value: "wifiacc-form" },
   { label: "VCard ", value: "vcard-form" },
 ]);
@@ -46,7 +47,7 @@ const toggleTab = (val: any) => {
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/app";
+@import "../../assets/scss/global";
 .tabs {
   @include flex(center, center, row, 0.5rem);
   width: 100%;
