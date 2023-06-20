@@ -1,17 +1,71 @@
-<script lang="ts">
-export default {
-  name: "vcard-form",
-};
-</script>
+<template>
+<!--  <qr-code-container/>-->
+  <form @submit.prevent="submitForm" @reset="resetForm">
+    <section id="personal-data">
+      <h3 class="Section-Title">Personal Data</h3>
+      
+      <base-input
+          id="first-name"
+          placeholder="First Name"
+          v-model="formData.name"
+      />
+      <base-input
+          id="last-name"
+          placeholder="Last Name"
+          v-model="formData.surname"
+      />
+      <base-input
+          id="phone-number"
+          inputmode="tel"
+          placeholder="Phone Number"
+          v-model="formData.phone"
+      />
+      <base-input
+          id="email-address"
+          inputmode="email"
+          placeholder="Email"
+          v-model="formData.email"
+      />
+      <base-input
+          id="personal-website"
+          inputmode="url"
+          placeholder="Personal website"
+          v-model="formData.website"
+      />
+      <base-input id="city" placeholder="City" v-model="formData.city"/>
+      <base-input
+          id="country"
+          placeholder="Country"
+          v-model="formData.country"
+      />
+    </section>
+
+    <section id="company-data">
+      <h3 class="Section-Title">Company</h3>
+      <base-input
+          id="company-name"
+          placeholder="Company"
+          v-model="formData.company"
+      />
+      <base-input
+          id="job-title"
+          placeholder="Job title"
+          v-model="formData.job_title"
+      />
+    </section>
+
+    <form-buttons></form-buttons>
+  </form>
+</template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch } from "vue";
-import Vcard from "../../types/vcard";
-import { useStore } from "vuex";
+import {reactive, computed, defineComponent} from "vue";
+import type Vcard from "../../types/vcard";
+import {useStore} from "vuex";
 
+defineComponent({name: 'VcardForm'})
 const store = useStore();
 
-const imageSrc = ref<string>("");
 const formData = reactive<Vcard>({
   name: "",
   surname: "",
@@ -33,96 +87,42 @@ const payload = computed(() => {
   `;
 });
 
-const resultGlobalData = computed(() => store.getters.handleResult);
-watch(resultGlobalData, (val: string) => (imageSrc.value = val));
-
-const generateQr = async () => {
-  store.dispatch("generateQrCode", payload.value);
-  imageSrc.value = resultGlobalData.value;
+const submitForm = async () => {
+  store.dispatch("GENERATE_QR_CODE", payload.value);
 };
+
+const resetForm = () => {
+  store.commit('RESET_QR_CODE')
+}
 </script>
-<template>
-  <section id="result">
-    <div class="form-result">
-      <img v-if="imageSrc" :src="imageSrc" alt="result" width="200" />
-      <div v-else class="placeholder"></div>
-    </div>
-  </section>
-  <section id="form" class="form-container">
-    <div class="input-group">
-      <base-input
-        id="first-name"
-        placeholder="Enter First Name"
-        v-model="formData.name"
-      />
-      <base-input
-        id="last-name"
-        placeholder="Enter Last Name"
-        v-model="formData.surname"
-      />
-    </div>
-    <div class="input-group">
-      <base-input
-        id="phone-number"
-        inputmode="tel"
-        placeholder="Enter Phone Number"
-        v-model="formData.phone"
-      />
-      <base-input
-        id="email-address"
-        inputmode="email"
-        placeholder="Enter Email Address"
-        v-model="formData.email"
-      />
-    </div>
-    <div class="input-group">
-      <base-input
-        id="company-name"
-        placeholder="Enter Company Name"
-        v-model="formData.company"
-      />
-      <base-input
-        id="job-title"
-        placeholder="Enter your Job Title"
-        v-model="formData.job_title"
-      />
-    </div>
-    <div class="input-group">
-      <base-input id="city" placeholder="Enter City" v-model="formData.city" />
-      <base-input
-        id="country"
-        placeholder="Enter Country"
-        v-model="formData.country"
-      />
-    </div>
-    <div class="input-personal-website">
-      <base-input
-        id="personal-website"
-        inputmode="url"
-        placeholder="Enter your Personal Website"
-        v-model="formData.website"
-      />
-    </div>
-  </section>
-  <base-button title="Generate" @click="generateQr" />
-</template>
+
 <style lang="scss" scoped>
 @import "../../assets/scss/global";
+
 .form-container {
   @include flex(start, space-evenly, row, 0);
   flex-wrap: wrap;
   max-width: 700px;
   margin: 1rem 0;
 }
+.Section-Title {
+  font-weight: 700;
+  font-size: 16px;
+}
 .input-personal-website {
   width: 100%;
 }
+
 .input-group {
   @include flex(center, center, row, 0);
   flex-wrap: wrap;
 }
+
 .placeholder {
   @include size(200px, 200px);
   background: lighten($color: $placeholder, $amount: 5);
+}
+:where(#company-data) {
+  margin-top: 16px !important;
 }
 </style>

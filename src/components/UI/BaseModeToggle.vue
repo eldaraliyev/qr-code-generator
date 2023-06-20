@@ -6,9 +6,10 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, defineComponent} from "vue";
 import {useStore} from "vuex";
 
+defineComponent({name: 'BaseModeToggle'})
 const store = useStore();
 
 const isDark = computed(() => store.getters.IS_DARK_MODE_ENABLED);

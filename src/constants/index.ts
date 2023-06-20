@@ -14,9 +14,10 @@ export const SocialLinks = {
 }
 
 export const Tabs: Label[] = [
-    {id: 1, label: "Simple Text", value: "simple-text-form"},
-    {id: 2, label: "URL", value: "url-form"},
-    {id: 3, label: "Phone Number", value: "phone-number"},
-    {id: 4, label: "Wi-Fi Access", value: "wifiacc-form"},
-    {id: 5, label: "Personal Card ", value: "vcard-form"},
+    {id: 1, label: "Text", value: "simple-text-form"},
+    {id: 2, label: "E-mail", value: "email-form"},
+    {id: 3, label: "URL", value: "url-form"},
+    {id: 4, label: "Phone Number", value: "phone-number-form"},
+    {id: 5, label: "Wi-Fi", value: "wifi-account-form"},
+    {id: 6, label: "Personal Card ", value: "vcard-form"},
 ]

@@ -10,3 +10,51 @@
   height: $height;
   width: $width;
 }
+
+@mixin layout($mode) {
+
+  @if $mode == light {
+    html[data-theme="light"] {
+      @content
+    }
+  }
+
+  @if $mode == dark {
+    html[data-theme="dark"] {
+      @content
+    }
+  }
+}
+
+@mixin media-query($media) {
+
+  @if $media == sm {
+    @media (max-width: 735px) {
+      @content
+    }
+  }
+
+  @if $media == md {
+    @media (min-width: 736px) and (max-width: 991px) {
+      @content
+    }
+  }
+
+  @if $media == lg {
+    @media (min-width: 992px) {
+      @content
+    }
+  }
+}
+
+@mixin component-transition {
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 0.2s ease;
+  }
+
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
+  }
+}

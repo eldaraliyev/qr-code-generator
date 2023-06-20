@@ -1,14 +1,18 @@
 @import "./variables", "./mixins";
 .card {
   @include flex(center, center, column, 0);
-  padding: 2rem;
+  padding: 16px;
   margin: 0 auto;
 
-  html[data-theme="light"] & {
+  @include layout(light) {
     color: $font-color;
   }
 
-  html[data-theme="dark"] & {
+  @include layout(dark){
     color: $font-color-dark;
+  }
+
+  @include media-query(sm) {
+    padding: 16px 0;
   }
 }

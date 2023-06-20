@@ -1,7 +1,6 @@
 <template>
   <main class="container">
-    <base-tabs v-show="false" @toggle-tab="toggleComponent"></base-tabs>
-    <mobile-dropdown @select-mode="toggleComponent"></mobile-dropdown>
+    <base-navbar @select-mode="selectComponent"></base-navbar>
     <Transition mode="out-in">
       <div class="card">
         <component :is="selectedComponent" />
@@ -16,12 +15,12 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import MobileDropdown from "../components/App/MobileDropdown.vue";
+import {ref} from "vue";
 
-const selectedComponent = ref<string>("simple-text-form");
-const toggleComponent = (val: string) => (selectedComponent.value = val);
-
+const selectedComponent = ref<string>('')
+const selectComponent = (val: string) => {
+  selectedComponent.value = val
+}
 </script>
 
 

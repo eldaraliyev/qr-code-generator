@@ -8,7 +8,7 @@ import "./assets/scss/global.scss"
 const app = createApp(App)
 
 components.forEach(component => {
-    app.component(component.name, component)
+    app.component(component.__name, component)
 });
 app.use(store)
     .use(router)

@@ -1,8 +1,10 @@
 <template>
-  <div class="Dropdown" @click="openDropdown" >
-    <span class="Dropdown-Title">{{ selectedTab || "Select Type" }}</span>
-    <svg class="Dropdown-Arrow" :class="{'Rotated': isDropdownOpened}" width="13" height="9" viewBox="0 0 13 9" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6.63597 5.56099L11.586 0.610992L13 2.02499L6.63597 8.38899L0.271973 2.02499L1.68597 0.610992L6.63597 5.56099Z"/>
+  <div class="Dropdown" @click="openDropdown">
+    <span class="Dropdown-Title" :class="{'isSelected': selectedTab}">{{ selectedTab || "Select Type" }}</span>
+    <svg class="Dropdown-Arrow" :class="{'Rotated': isDropdownOpened}" width="13" height="9" viewBox="0 0 13 9"
+         xmlns="http://www.w3.org/2000/svg">
+      <path
+          d="M6.63597 5.56099L11.586 0.610992L13 2.02499L6.63597 8.38899L0.271973 2.02499L1.68597 0.610992L6.63597 5.56099Z"/>
     </svg>
     <transition>
       <div v-if="isDropdownOpened" class="Dropdown-Menu">
@@ -14,21 +16,22 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: "MobileDropdown"
-}
-</script>
-
 <script setup lang="ts">
-import {ref, defineEmits} from "vue";
+import {ref, defineEmits, defineComponent, watch} from "vue";
 import {Tabs as dropdownVariants} from "../../constants/index"
+import {useStore} from "vuex";
 
+defineComponent({name: "MobileDropdown"})
 const emit = defineEmits(['selectMode'])
-
+const {commit} = useStore()
 const isDropdownOpened = ref<boolean>(false)
 const selectedTab = ref<string>('')
 
+watch(selectedTab, (value, oldValue) => {
+  if (oldValue && (value !== oldValue)) {
+    commit('RESET_QR_CODE')
+  }
+})
 const openDropdown = () => {
   isDropdownOpened.value = !isDropdownOpened.value
 }
@@ -43,9 +46,11 @@ const selectTabVariant = (variantId: number) => {
 
 <style lang="scss" scoped>
 @import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
 .Dropdown {
   position: relative;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -58,7 +63,11 @@ const selectTabVariant = (variantId: number) => {
   &-Title {
     font-size: 16px;
     font-weight: 700;
-    color: #4F1CA3;
+    color: #4F1CA370;
+
+    &.isSelected {
+      color: #4F1CA3;
+    }
   }
 
   &-Arrow {
@@ -67,6 +76,7 @@ const selectTabVariant = (variantId: number) => {
     right: 16px;
     transition: 500ms;
     fill: #4F1CA3;
+
     &.Rotated {
       transform: rotate(180deg);
     }
@@ -74,11 +84,13 @@ const selectTabVariant = (variantId: number) => {
 
   &-Menu {
     position: absolute;
-    background-color: #ffffff;
+    background-color: $neutral-50;
     width: 100%;
     top: calc(100% + 8px);
     border-radius: 8px;
     padding: 4px 0;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
+
     &-Variant {
       padding: 12px;
       position: relative;
@@ -88,24 +100,30 @@ const selectTabVariant = (variantId: number) => {
     }
   }
 }
+
 html[data-theme="dark"] {
   .Dropdown {
     background-color: $neutral-900;
     border-color: $neutral-600;
+
     &-Title {
       color: $neutral-300;
     }
+
     &-Arrow {
       fill: $neutral-300
     }
+
     &-Menu {
       background-color: $neutral-900;
+
       &-Variant {
         color: $neutral-300;
       }
     }
   }
 }
+
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;
@@ -114,5 +132,11 @@ html[data-theme="dark"] {
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
+}
+
+@include media-query(sm) {
+  .Dropdown {
+    display: flex;
+  }
 }
 </style>
