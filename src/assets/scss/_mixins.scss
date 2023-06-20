@@ -11,6 +11,22 @@
   width: $width;
 }
 
+@mixin container {
+  width: 100%;
+  max-width: 1024px;
+  margin: auto;
+  padding: 0 1rem;
+
+  @include media-query(sm) {
+    max-width: 425px;
+  }
+
+  @include media-query(md) {
+    max-width: 768px;
+  }
+
+}
+
 @mixin layout($mode) {
 
   @if $mode == light {

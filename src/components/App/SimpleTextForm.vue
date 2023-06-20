@@ -29,11 +29,12 @@ const resetForm = () => commit('RESET_QR_CODE')
 @import "../../assets/scss/global";
 
 .SimpleText {
-  //background-color: #a3a3a3;
-  width: 768px;
+  background-color: #a3a3a3;
+  //width: 768px;
   padding: 0 40px;
   display: flex;
   justify-content: space-between;
+  gap: 64px;
   &-Form {
     height: 100%;
     display: flex;

@@ -1,61 +1,63 @@
 <template>
-<!--  <qr-code-container/>-->
-  <form @submit.prevent="submitForm" @reset="resetForm">
-    <section id="personal-data">
-      <h3 class="Section-Title">Personal Data</h3>
-      
-      <base-input
-          id="first-name"
-          placeholder="First Name"
-          v-model="formData.name"
-      />
-      <base-input
-          id="last-name"
-          placeholder="Last Name"
-          v-model="formData.surname"
-      />
-      <base-input
-          id="phone-number"
-          inputmode="tel"
-          placeholder="Phone Number"
-          v-model="formData.phone"
-      />
-      <base-input
-          id="email-address"
-          inputmode="email"
-          placeholder="Email"
-          v-model="formData.email"
-      />
-      <base-input
-          id="personal-website"
-          inputmode="url"
-          placeholder="Personal website"
-          v-model="formData.website"
-      />
-      <base-input id="city" placeholder="City" v-model="formData.city"/>
-      <base-input
-          id="country"
-          placeholder="Country"
-          v-model="formData.country"
-      />
-    </section>
+  <div class="VCard">
+    <qr-code-container/>
+    <form class="VCard-Form" @submit.prevent="submitForm" @reset="resetForm">
+      <section id="personal-data">
+        <h3 class="Section-Title">Personal Data</h3>
 
-    <section id="company-data">
-      <h3 class="Section-Title">Company</h3>
-      <base-input
-          id="company-name"
-          placeholder="Company"
-          v-model="formData.company"
-      />
-      <base-input
-          id="job-title"
-          placeholder="Job title"
-          v-model="formData.job_title"
-      />
-    </section>
+        <base-input
+            id="first-name"
+            placeholder="First Name"
+            v-model="formData.name"
+        />
+        <base-input
+            id="last-name"
+            placeholder="Last Name"
+            v-model="formData.surname"
+        />
+        <base-input
+            id="phone-number"
+            inputmode="tel"
+            placeholder="Phone Number"
+            v-model="formData.phone"
+        />
+        <base-input
+            id="email-address"
+            inputmode="email"
+            placeholder="Email"
+            v-model="formData.email"
+        />
+        <base-input
+            id="personal-website"
+            inputmode="url"
+            placeholder="Personal website"
+            v-model="formData.website"
+        />
+        <base-input id="city" placeholder="City" v-model="formData.city"/>
+        <base-input
+            id="country"
+            placeholder="Country"
+            v-model="formData.country"
+        />
+      </section>
 
-    <form-buttons></form-buttons>
-  </form>
+      <section id="company-data">
+        <h3 class="Section-Title">Company</h3>
+        <base-input
+            id="company-name"
+            placeholder="Company"
+            v-model="formData.company"
+        />
+        <base-input
+            id="job-title"
+            placeholder="Job title"
+            v-model="formData.job_title"
+        />
+      </section>
+
+      <form-buttons></form-buttons>
+    </form>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -99,16 +101,26 @@ const resetForm = () => {
 <style lang="scss" scoped>
 @import "../../assets/scss/global";
 
-.form-container {
-  @include flex(start, space-evenly, row, 0);
-  flex-wrap: wrap;
-  max-width: 700px;
-  margin: 1rem 0;
+.VCard {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  gap: 64px;
+  @include container;
+  &-Form {
+    height: 100%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    gap: 16px;
+  }
 }
+
 .Section-Title {
   font-weight: 700;
   font-size: 16px;
 }
+
 .input-personal-website {
   width: 100%;
 }
@@ -122,6 +134,7 @@ const resetForm = () => {
   @include size(200px, 200px);
   background: lighten($color: $placeholder, $amount: 5);
 }
+
 :where(#company-data) {
   margin-top: 16px !important;
 }
